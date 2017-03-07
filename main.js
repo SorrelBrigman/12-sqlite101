@@ -1,7 +1,7 @@
 'use strict';
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('example.sqlite');
+const db = new sqlite3.Database('example.sqlite', ()=> console.log("connected"));
 
 // errorHandler is a function which accepts an error object
 const errorHandler = (err) => {
@@ -102,3 +102,9 @@ let compare = (a, b)=> {
    })
   console.log(myArray)
  })
+
+ //closing the database
+db.close((err)=>{
+  errorHandler(err);
+  console.log("close");
+})
