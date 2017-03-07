@@ -9,6 +9,26 @@ const dropEmployees = () => {
 
 // dropEmployees();
 
-db.run("CREATE TABLE IF NOT EXISTS employees(id INT, first TEXT, last TEXT, salary NUMBER(6,2))");
+//create the employee table if it does not exist
+//will not execute if the table exists
+db.run("CREATE TABLE IF NOT EXISTS employees(id INT, first TEXT, last TEXT, salary INT, dept TEXT, yearsWithCompany INT)");
 
-// db.run("INSERT INTO employees VALUES(1, 'Ashley', 'Irwin', 5 )");
+ // db.run("INSERT INTO employees VALUES(1, 'Ashley', 'Irwin', 50000)");
+
+ const populateEmployees = () => {
+
+  const {list} = require('./employees.json');
+
+  list.forEach(each => {
+    db.run(`INSERT INTO employees VALUES(
+        ${each.id},
+        "${each.firstName}",
+        "${each.lastName}",
+        ${each.salary},
+        "${each.dept}",
+        ${each.yearsWithCompany}
+      )`);
+  })
+
+ };
+ populateEmployees();
